@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/templates/style/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            background: #B79891;
+            background: -webkit-linear-gradient(to right, #6d5653, #B79891);
+            background: linear-gradient(to right, #6d5653, #B79891);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form {
+            width: 35%;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        form h1 {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        label,
+        input {
+            display: block;
+            width: 90%;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        label {
+            margin: 0 auto;
+            font-size: 13.5px;
+        }
+
+        input {
+            margin: 0 auto 35px;
+            padding: 0 5px;
+            height: 50px;
+            border: none;
+            border-bottom: 2px solid burlywood;
+            font-size: 18px;
+            color: rgb(134, 88, 28);
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            width: 90%;
+            padding: 15px 0;
+            border-radius: 7px;
+            border: none;
+            background-color: burlywood;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #7a615e;
+            color: rgb(236, 201, 155);
+        }
+
+        ::placeholder {
+            color: rgb(180, 173, 173);
+        }
+
+        input:focus,
+        button:focus {
+            outline: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <form action="">
+            <h1>LOGIN</h1>
+            <label for="">Username</label>
+            <input type="text" name="username" placeholder="Type your username" autocomplete="off">
+            <label for="">Password</label>
+            <input type="password" name="password" placeholder="Type your password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+
+</html>
