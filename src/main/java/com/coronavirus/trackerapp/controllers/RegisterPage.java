@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 public class RegisterPage {
@@ -14,27 +15,45 @@ public class RegisterPage {
     @Autowired
     private CustomerRepository repository;
 
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @GetMapping("/daftar")
-    public String register(@ModelAttribute CustomerDTO customerDTO, Model model) {
+    public String getRegister(@ModelAttribute CustomerDTO customerDTO, Model model) {
         model.addAttribute("customerDTO", customerDTO);
         return "register";
     }
 
     @PostMapping("/daftar")
     public String save(@ModelAttribute("customerDTO") CustomerDTO customerDTO) {
-        repository.deleteAll();
-        repository.save(new CustomerDTO(customerDTO.getUsername(), customerDTO.getPassword()));
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (CustomerDTO customer : repository.findAll()) {
-            System.out.println(customer);
+        String username = customerDTO.getUsername();
+        CustomerDTO result = repository.findByUsername(username);
+        if (result != null) {
+            System.out.println("Data ditemukan.");
+            return "redirect:login";
+        } else {
+            repository.save(new CustomerDTO(customerDTO.getUsername(), passwordEncoder.encode(customerDTO.getPassword())));
+            return "redirect:login";
         }
-        return "redirect:login";
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute CustomerDTO customerDTO, Model model) {
+    public String getLogin(@ModelAttribute CustomerDTO customerDTO, Model model) {
         model.addAttribute("customerDTO", customerDTO);
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String Postlogin(@ModelAttribute CustomerDTO customerDTO, Model model) {
+        model.addAttribute("customerDTO", customerDTO);
+        String username = customerDTO.getUsername();
+        CustomerDTO usernameQuery = repository.findByUsername(username);
+        boolean isTrue = passwordEncoder.matches(customerDTO.getPassword(), usernameQuery.getPassword());
+        if (isTrue) {
+            return "redirect:/";
+        } else {
+            System.out.println("Password tidak cocok");
+            return "redirect:login";
+        }
+
     }
 }

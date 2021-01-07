@@ -92,12 +92,12 @@
 
 <body>
     <div class="form">
-        <form action="">
+        <form action="#" method="post" th:action="@{/login}" th:object="${customerDTO}">
             <h1>LOGIN</h1>
             <label for="">Username</label>
-            <input type="text" name="username" placeholder="Type your username" autocomplete="off">
+            <input type="text" name="username" placeholder="Type your username" autocomplete="off" th:value="*{username}">
             <label for="">Password</label>
-            <input type="password" name="password" placeholder="Type your password">
+            <input type="password" name="password" placeholder="Type your password" th:value="*{password}">
             <button type="submit">Login</button>
         </form>
     </div>
