@@ -63,9 +63,10 @@
                 </tr>
                 </thead>
 
-                <tr th:each="prod : ${data}">
-                    <td th:text="${prod.state}"></td>
-                    <td th:text="${prod.country}"></td>
+
+                <tr th:each="prod : ${datas}">
+                    <td th:text="${prod.getState()}"></td>
+                    <td th:text="${prod.getCountry()}"></td>
                     <td th:text="${prod.latestTotalCases}"></td>
                     <td th:text="${prod.diffFromPrevDay}"></td>
                 </tr>
